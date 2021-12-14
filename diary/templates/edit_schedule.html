@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'css/skeleton.css' %}"><meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dungeon Diary</title>
+    </head>
+<body>
+    <div class="container">
+        <div class="two columns">
+            <div class="sidebar">
+                <div class="nav">
+                    <a href="/dashboard" class="button">Dashboard</a>
+                </div>
+                <br>
+                {% for group in user_groups %}
+                <div class="nav">
+                    <h6>{{group.group_name.upper}}</h6>
+                    <a href="group/{{group.id}}" class="button">group details</a>
+                    <a href="/schedule/{{group.id}}" class="button">upcoming session</a>
+                    <a href="/archive/{{group.id}}" class="button">archive</a>
+                </div>
+                <br>
+                {% endfor %}
+                <div class="nav">
+                    <a href="/new_group" class="button">New Group</a>
+                </div>
+                <div class="nav">
+                    <a href="/user/{{this_user.id}}" class="button">Update profile</a>
+                </div>
+                <div class="nav">
+                    <a href="/logout" class="button">Logout</a>
+                </div>
+            </div>
+            <div class="two columns">
+                <br>
+            </div>
+            <div class="six columns">
+                <h4>Update upcoming session:</h4>
+                <form action="/schedule/{{this_group.id}}/update" method="POST">
+                    {% csrf_token %}
+                    <label for="date">Date:</label>
+                    <input type="date" value="{{this_session.date}}">
+                    <br>
+                    <label for="time">Time:</label>
+                    <input type="time" value="{{this_session.time}}">
+                    <br>
+                    <label for="schedule_notes">Notes:</label>
+                    <input type="text" value="{{this_session.schedule_notes}}">
+                    <br>
+                    <input type="hidden" name = "group_id" value="{{this_group.id}}">
+                    <input type="button" value="Submit">
+                </form>
+            </div>
+            <div class="two columns">
+                <br>
+            </div>
+    </div>
+</body>
+</html>

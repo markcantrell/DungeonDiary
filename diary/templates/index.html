@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/skeleton.css' %}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Diary</title>
+</head>
+<body>
+    <div class="container">
+        <div class="tweleve columns">
+        <h3>Welcome to the Dungeon Diary</h3>
+        </div>
+        <br>
+        <div class="errors">
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="six columns">
+                <div class="login">
+                    <h3>Login</h3>
+                    <br>
+                    <form action="/login" method="POST">
+                        {% csrf_token %}
+                            <label for="email">Email:</label>
+                            <input type="text" id="email" name="email">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password">
+                            <br>
+                            <input type="submit" value="Login">
+                    </form>
+                </div>
+            </div>
+            <div class="six columns">
+                <div class="register">
+                    <h3>Register</h3>
+                    <br>
+                    <form action="/create_user" method="POST">
+                        {% csrf_token %}
+                            <label for="first_name">First Name:</label>
+                            <input type="text" id="first_name" name="first_name">
+                            <label for="last_name">Last Name:</label>
+                            <input type="text" id="last_name" name="last_name">
+                            <label for="email">Email:</label>
+                            <input type="text" id="email" name="email">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password">
+                            <label for="confirm_password">Confirm Password:</label>
+                            <input type="password" id="confirm_password" name="confirm_password">
+                            <br>
+                            <input type="submit" value="Register">
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
